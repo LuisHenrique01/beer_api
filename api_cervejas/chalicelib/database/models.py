@@ -1,12 +1,15 @@
 from dataclasses import dataclass
 from typing import List
-from .models import Model
+from .base_models import Model
 
 
 @dataclass
 class BoilVolume(Model):
     value: float
     unit: str
+
+    class Meta:
+        table_name = 'boil_volume'
 
 
 @dataclass
