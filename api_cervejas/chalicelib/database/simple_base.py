@@ -39,7 +39,7 @@ class Database(Base):
     def create(self, table_name: str, object: dict) -> ObjectId:
         return self._db[table_name].insert_one(object).inserted_id
 
-    def get_or_create(self, table_name: str, query: dict, obj_create: dict) -> dict:
+    def get_or_create(self, table_name: str, query: dict, obj_create: dict) -> dict | None:
         return self._db[table_name].find_one_and_update(query, {'$setOnInsert': obj_create}, upsert=True)
 
     def create_many(self, table_name: str, objects: list) -> list:
