@@ -1,4 +1,4 @@
-# Beers API :beer
+# Beers API :beer:
 
 Sua API de cervejas artesanais, ela vai reunir várias informações sobre o preparo de diversas cervejas ao redor do mundo.
 
