@@ -31,9 +31,9 @@ class Model(BaseModelABS):
         return cls.from_dict(cls.__db.get_object(cls.get_table_name(), query))
 
     @classmethod
-    def filter(cls, query: dict = None, order_by: list = None, **kwargs):
+    def filter(cls, query: dict = None, order_by: list = None, page: int = None, limit: int = None, **kwargs):
         query = query or kwargs
-        return cls.__db.get_objects(cls.get_table_name(), query, order_by)
+        return cls.__db.get_objects(cls.get_table_name(), query, order_by, page, limit)
 
     @classmethod
     def get_or_create(cls, query: dict = None, obj_create: dict = None, **kwargs):
@@ -57,6 +57,10 @@ class Model(BaseModelABS):
         if many:
             return self.__db.delete_many(self.get_table_name(), query)
         return self.__db.delete(self.get_table_name(), query)
+    
+    @classmethod
+    def count_documents(cls, query: dict = {}):
+        return  cls.__db.coun_documents(cls.get_table_name(), query)
 
     def to_dict(self):
         obj = vars(self)

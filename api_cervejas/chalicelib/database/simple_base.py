@@ -30,10 +30,13 @@ class Database(Base):
     def get_object(self, table_name: str, query: dict) -> dict | None:
         return self._db[table_name].find_one(query)
 
-    def get_objects(self, table_name: str, query: dict, order_by: list = None) -> Cursor | None:
+    def get_objects(self, table_name: str, query: dict, order_by: list = None,
+                    page: int = None, limit: int = None) -> Cursor | None:
         cursor = self._db[table_name].find(query)
         if order_by and cursor:
             cursor.sort(order_by)
+        if page and limit:
+            cursor.skip(limit * (page - 1)).limit(limit)
         return cursor
 
     def create(self, table_name: str, object: dict) -> ObjectId:
@@ -56,3 +59,6 @@ class Database(Base):
 
     def delete_many(self, table_name: str, query: dict) -> dict:
         return self._db[table_name].delete_many(query).raw_result
+
+    def coun_documents(self, table_name: str, query: dict) -> int:
+        return self._db[table_name].count_documents(query)
