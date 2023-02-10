@@ -108,6 +108,10 @@ class Method(Model):
 
 @dataclass
 class Brewery(Model):
+
+    class Meta:
+        table_name = 'beers'
+
     id: int
     name: str
     tagline: str

@@ -69,9 +69,10 @@ class Model(BaseModelABS):
     @classmethod
     def from_dict(cls, data: dict):
         if data:
-            _id = data.pop('_id')
+            _id = data.pop('_id', None)
             obj = cls(**data)
-            obj._id = _id
+            if _id:
+                obj._id = _id
             return obj
     
     def __str__(self) -> str:
