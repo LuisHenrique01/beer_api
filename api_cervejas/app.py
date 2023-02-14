@@ -17,3 +17,5 @@ def index():
 #
 # See the README documentation for more examples.
 #
+
+@app.on_sns_message()

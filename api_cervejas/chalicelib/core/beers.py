@@ -8,3 +8,5 @@ def get_beers(page: int = None, limit: int = None):
     response = BreweryAPI.get_beers(page=page, limit=limit)
     # SNS ou SQS para salvar
     return response
+
+

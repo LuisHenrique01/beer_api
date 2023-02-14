@@ -40,10 +40,12 @@ class Model(BaseModelABS):
         query = query or kwargs
         return cls.from_dict(cls.__db.get_or_create(cls.get_table_name(), query, obj_create))
 
-    def save(self, objects: list = None, many: bool = False):
-        if many:
-            return self.__db.create_many(self.get_table_name(), [obj if isinstance(obj, dict) else obj.to_dict()
-                                                             for obj in objects])
+    @classmethod
+    def save_many(cls, objects: list = None):
+        return cls.__db.create_many(cls.get_table_name(), [obj if isinstance(obj, dict) else obj.to_dict()
+                                    for obj in objects])
+
+    def save(self):
         return self.__db.create(self.get_table_name(), self.to_dict())
 
     def update(self, query: dict = None, data: dict = None, upsert: bool = False, many: bool = False, **kwargs):
