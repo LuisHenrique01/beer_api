@@ -1,21 +1,17 @@
 from chalice import Chalice
 
+from chalicelib.core.beers import get_beers, filter_beers
+
 app = Chalice(app_name='api_cervejas')
 
 
-@app.route('/beers')
-def index():
-    return 
+@app.route('/beers', methods=['GET'])
+def get_all():
+    params = app.current_request.query_params or {}
+    return get_beers(params)
 
 
-# @app.route('/users', methods=['POST'])
-# def create_user():
-#     # This is the JSON body the user sent in their POST request.
-#     user_as_json = app.current_request.json_body
-#     # We'll echo the json body back to the user in a 'user' key.
-#     return {'user': user_as_json}
-#
-# See the README documentation for more examples.
-#
-
-@app.on_sns_message()
+@app.route('/beers-filter', methods=['GET'])
+def filter():
+    params = app.current_request.query_params or {}
+    return filter_beers(params)
